@@ -1,0 +1,4 @@
+/* app instalada / móvil: sin selección ni zoom accidental */
+html,body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+button,select{touch-action:manipulation}
+#fsBtn{display:block;width:100%;margin:0 0 10px;font:700 13px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;background:var(--sangre);color:var(--papel);border:0;cursor:pointer}

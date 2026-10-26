@@ -53,7 +53,7 @@ background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.35),transp
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;margin-top:14px}
 .opts label{display:grid;gap:3px;font:600 12px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;color:#5a3b22;min-width:0}
 .opts select{background:var(--papel2);color:#2a1a10;border:1px solid #2a1a1066;padding:6px;font:500 15px var(--f-ui);min-width:0;width:100%}
-.nota{font:400 12.5px/1.45 var(--f-body);color:#5a3b22;margin:12px 0 0;text-align:center}
+.opts.uno{grid-template-columns:1fr}.nota{font:400 12.5px/1.45 var(--f-body);color:#5a3b22;margin:12px 0 0;text-align:center}
 /* cartel: filas del lote y selector */
 .lote{display:grid;gap:0;margin-top:14px;border-top:1px solid #2a1a1040}
 .row{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:10px;text-align:left;background:none;border:0;border-bottom:1px solid #2a1a1040;padding:8px 2px;cursor:pointer;color:#2a1a10;min-width:0}
@@ -103,7 +103,7 @@ background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.35),transp
 #mtxt{font:600 14px var(--f-ui);letter-spacing:.16em;text-transform:uppercase;margin-top:6px;text-shadow:0 1px 3px #000;min-height:1.2em}
 #keys{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:4px;justify-items:center;font:500 14px var(--f-ui);color:#e9d9b8;text-shadow:0 1px 3px #000;letter-spacing:.03em;padding:0 16px}
 .kg{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center}.kg b{color:var(--oro);font-weight:700}
-#toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-30px);opacity:0;transition:.3s;background:var(--humo);padding:6px 14px;font:500 14px var(--f-ui);z-index:20;pointer-events:none}
+#toast{position:fixed;left:50%;top:calc(60px + env(safe-area-inset-top,0px));max-width:min(640px,86vw);text-align:center;transform:translate(-50%,-30px);opacity:0;transition:.3s;background:var(--humo);padding:6px 14px;font:500 14px var(--f-ui);z-index:20;pointer-events:none}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 #err{position:fixed;left:16px;bottom:16px;z-index:40;background:#5a0c06;color:#fff;padding:8px 12px;font:13px var(--f-body);max-width:80vw}
 /* resultado */
@@ -189,6 +189,8 @@ background:radial-gradient(circle at 50% 30%,rgba(48,30,18,.66),rgba(12,8,6,.66)
 #pad .fb.armed{background:radial-gradient(circle,rgba(216,174,74,.78),rgba(150,100,30,.78));color:#140e0b}#pad .fb.armed span{text-shadow:none}
 #pad .gold{border-color:var(--papel);background:radial-gradient(circle,rgba(216,174,74,.9),rgba(150,100,30,.9));color:#140e0b;animation:tpulse 1s ease-in-out infinite alternate}
 @media (orientation:portrait){#pad .sr{bottom:calc(214px + env(safe-area-inset-bottom,0px));right:calc(max(18px,env(safe-area-inset-right,0px)) + 20px)}#pad .m0,#pad .m1,#pad .m2{right:auto;left:max(16px,env(safe-area-inset-left,0px))}#pad .m0{bottom:calc(258px + env(safe-area-inset-bottom,0px))}#pad .m1{bottom:calc(294px + env(safe-area-inset-bottom,0px))}#pad .m2{bottom:calc(330px + env(safe-area-inset-bottom,0px))}}
+#tanda{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:min(640px,80vw);background:rgba(16,11,9,.55);border:1px solid rgba(216,174,74,.5);padding:5px 14px;font:600 15px var(--f-ui);letter-spacing:.04em;color:var(--papel);text-shadow:0 1px 3px #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.touch #tanda{bottom:auto;top:calc(54px + env(safe-area-inset-top,0px));font-size:12px;padding:3px 10px;max-width:46vw}
 /* anillo de tiempo */
 #ring{position:fixed;left:0;top:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .15s}#ring.on{opacity:1}
 #ring i{position:absolute;left:0;top:0;border:2px solid rgba(239,227,200,.9);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px rgba(0,0,0,.6),inset 0 0 6px rgba(0,0,0,.4)}
@@ -221,6 +223,7 @@ background:radial-gradient(circle at 50% 30%,rgba(48,30,18,.66),rgba(12,8,6,.66)
 @media (max-width:640px){#goal{max-width:62vw}#goal b{font-size:14px}.sc{width:150px}#score{font-size:40px}#hudSub{font-size:13px}#keys{display:none}#menu{background:rgba(12,8,6,.35)}.tl{max-width:62vw}}
 @media (orientation:portrait){#tzone{width:55%;height:40%}.touch #meter{bottom:calc(240px + env(safe-area-inset-bottom,0px));width:70vw}#thint{bottom:calc(200px + env(safe-area-inset-bottom,0px))}.touch #meter{bottom:calc(250px + env(safe-area-inset-bottom,0px))}.touch #hudSub{display:none}.touch .tl{max-width:calc(50vw - 30px)}.touch #goal{max-width:calc(50vw - 64px)}}
 @media (prefers-reduced-motion:reduce){#call,.mode,#toast{transition:none}}
+
 /* app instalada / móvil: sin selección ni zoom accidental */
 html,body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 button,select{touch-action:manipulation}
@@ -236,7 +239,7 @@ button,select{touch-action:manipulation}
 <div class="tr"><div id="clock">0:00</div><div id="avisos"></div></div>
 <div class="sc"><div id="scoreLbl">Faena</div><div id="score">0</div><div id="combo"></div>
 <div class="bars"><label><span id="fzLbl">Fuerza del toro</span><i><b id="fzBar"></b></i></label><label><span>Ambiente en los tendidos</span><i><b id="amb"></b></i></label></div></div>
-<div id="call"></div>
+<div id="call"></div><div id="tanda" hidden></div>
 <div id="meter"><div class="track"><span id="mz"></span><span id="mk"></span></div><div id="mtxt"></div></div>
 <div id="keys"></div>
 </div>
@@ -259,11 +262,7 @@ button,select{touch-action:manipulation}
 <button class="row" id="rowToro"><span class="rk">Toro</span><span class="rv" id="sToro"></span><i>›</i></button>
 <button class="row" id="rowTraje"><span class="rk">Traje</span><span class="rv" id="sTraje"></span><i>›</i></button>
 </div>
-<div class="opts">
-<label>Cámara<select id="optCam"><option value="plano">Plano general</option><option value="torero">Tras el torero</option></select></label>
-<label>Controles<select id="optCtrl"><option value="facil">Sencillos</option><option value="experto">Expertos</option></select></label>
-<label>Gráficos<select id="optQ"><option value="alta">Alta</option><option value="media">Media</option><option value="baja">Baja</option></select></label>
-<label>Suerte suprema<select id="optSuerte"><option value="si">Entrar a matar</option><option value="no">Sin estocada</option></select></label>
+<div class="opts uno">
 <label>Dificultad<select id="optDif"><option value=".85">Novillero</option><option value="1" selected>Matador</option><option value="1.15">Figura</option></select></label>
 </div>
 <p class="nota">Toreros, ganaderías y pueblo de ficción, con encastes y tradiciones reales. Arrastra para girar la cámara · Esc o P pausa la partida.</p>
@@ -273,7 +272,7 @@ button,select{touch-action:manipulation}
 </div>
 <div id="result" hidden><div class="res"><div class="pan" id="rPan" hidden></div><div id="rTitle"></div><p id="rSub"></p><div id="rStats"></div><div class="rb"><button id="again">Otra vez</button><button id="toMenu">Volver al cartel</button></div></div></div>
 <div id="touch" hidden><div id="tzone"><div id="stick"><div id="knob"></div></div></div><div id="tleft"></div><div id="thint" hidden></div><div id="tact"></div></div>
-<div id="pause" hidden><div class="res"><div class="eyebrow" id="pMode"></div><div id="rTitle2">Pausa</div><div class="pb"><button id="pResume">Continuar</button><button id="pRestart">Reiniciar</button><button id="pMenu">Salir al menú principal</button></div><label class="pq">Cámara<select id="pCam"><option value="plano">Plano general</option><option value="torero">Tras el torero</option></select></label><label class="pq">Controles<select id="pCtrl"><option value="facil">Sencillos</option><option value="experto">Expertos</option></select></label><label class="pq">Gráficos<select id="pQ"><option value="alta">Alta</option><option value="media">Media</option><option value="baja">Baja</option></select></label><div id="pKeys"></div><p class="nota">Esc o P para continuar</p></div></div>
+<div id="pause" hidden><div class="res"><div class="eyebrow" id="pMode"></div><div id="rTitle2">Pausa</div><div class="pb"><button id="pResume">Continuar</button><button id="pRestart">Reiniciar</button><button id="pMenu">Salir al menú principal</button></div><div id="pKeys"></div><p class="nota">Esc o P para continuar</p></div></div>
 <div id="ring"><i></i><b></b></div><div id="toast"></div><div id="err" hidden></div>
 <script>
 // ================= MOTOR =================
@@ -649,6 +648,7 @@ const PART=[];
 function emit(p,v,s,life,c,a=.5,g=0,gr=0){if(PART.length>=R.pmax)PART.shift();PART.push({p:[...p],v:[...v],s,life,max:life,c,a,g,gr})}
 function updParts(dt){let k=0;for(let i=PART.length-1;i>=0;i--){const q=PART[i];q.life-=dt;if(q.life<=0){PART.splice(i,1);continue}q.p[0]+=q.v[0]*dt;q.p[1]+=q.v[1]*dt;q.p[2]+=q.v[2]*dt;if(q.g){q.v[1]-=q.g*dt;if(q.p[1]<.04){q.p[1]=.04;q.v[0]*=.5;q.v[1]=0;q.v[2]*=.5}}else{q.v[1]-=.15*dt;q.v[0]*=.985;q.v[2]*=.985;q.s+=dt*.6*(1-(q.gr||0))}}
 for(const q of PART){const t=q.life/q.max,o=k*8;R.pdata[o]=q.p[0];R.pdata[o+1]=q.p[1];R.pdata[o+2]=q.p[2];R.pdata[o+3]=q.s;R.pdata[o+4]=q.c[0];R.pdata[o+5]=q.c[1];R.pdata[o+6]=q.c[2];R.pdata[o+7]=q.a*M.min(1,t*2)*M.min(1,(1-t)*6);k++}R.pcount=k}
+
 // ================= TEXTURAS PROCEDURALES =================
 function cnv(w,h=w){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
 function hsh(x,y,s){let h=(x*374761393+y*668265263+s*982451653)|0;h=M.imul(h^(h>>>13),1274126177);return((h^(h>>>16))>>>0)/4294967296}
@@ -930,6 +930,7 @@ x.lineWidth=.06*k;x.strokeStyle='rgba(14,0,0,1)';for(let r=2;r<PLZ.R;r+=.55){x.b
 if(R.trkTex)texUpd(R.trkTex,c);else R.trkTex=texC(c,{srgb:false,rep:false});R.trk=[0,0,TRK.W,0];TRK.dirty=0}
 function stamp(x,z,r,amt,ch='r'){if(TRK.off)return;const k=TRK.S/TRK.W,px=TRK.S/2+x*k,pz=TRK.S/2+z*k,X=TRK.x;const col=ch=='r'?`rgba(${amt|0},0,0,1)`:`rgba(0,${amt|0},0,1)`;
 const g=X.createRadialGradient(px,pz,0,px,pz,r*k);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');X.fillStyle=g;X.fillRect(px-r*k,pz-r*k,r*k*2,r*k*2);TRK.dirty=1}
+
 // ================= JUEGO =================
 const $=id=>document.getElementById(id);
 const SCN=new Node();
@@ -1023,7 +1024,7 @@ muleta:[
 const C={};
 function bullInfo(d){return`Nº ${d.num} · «${d.name}» · ${d.peso} kg · ${CAPA_TXT[d.capa]} · ${d.g.n} (encaste ${d.g.enc})`}
 function startCorrida(mode){G.mode=mode;Object.assign(ENV,ENV_TARDE);SCN.ch=[W.arena];TRK.off=0;trackInit();
-G.ai=mode=='toro';C.data=G.bullSel&&G.bullSel.g===GANADERIAS[G.opts.gan]?G.bullSel:newBullData(G.opts.gan);C.B=spawnBull(C.data);C.T=spawnTorero(G.opts.traje);C.t=0;C.tercio='capote';C.tT=0;C.avisos=0;C.score=0;C.brav=0;C.over=0;C.pan=0;C.musicOn=0;C.lastCharge=0;C.events=[];C.passCount=0;C.best=0;C.emb=0;C.cogT=0;C.kill=null;C.askInd=0;C.camY=undefined;if(SWORD)attach(SWORD,null);
+G.ai=mode=='toro';C.data=G.bullSel&&G.bullSel.g===GANADERIAS[G.opts.gan]?G.bullSel:newBullData(G.opts.gan);C.B=spawnBull(C.data);C.T=spawnTorero(G.opts.traje);C.t=0;C.tercio='capote';C.tT=0;C.avisos=0;C.score=0;C.brav=0;C.over=0;C.pan=0;C.musicOn=0;C.lastCharge=0;C.events=[];C.passCount=0;C.best=0;C.emb=0;C.cogT=0;C.kill=null;C.askInd=0;C.camY=undefined;C.fy=undefined;if(SWORD)attach(SWORD,null);
 const B=C.B,Tt=C.T;B.p=[0,0,PLZ.R-1.2];B.h=PI;B.state='salida';B.stT=0;B.sal=[rnd(-8,8),0,-PLZ.R+5];Tt.p=mode=='toro'?[rnd(-3,3),0,-6]:[-3.5,0,-7];Tt.hd=0;Tt.tool='capote';
 G.cam.yaw=0;G.cam.pitch=0;placeCloth(Tt,true);
 $('hudTitle').textContent=mode=='toro'?'Eres el toro':'Tercio de capote';$('hudSub').textContent=bullInfo(C.data);
@@ -1151,12 +1152,15 @@ function camFollow(dt,focus,look,dist,h,yaw){const cy=yaw+G.cam.yaw;dist*=G.cam.
 const r=M.hypot(tp[0],tp[2]);if(SCN.ch[0]===W.arena&&r>PLZ.cal-.4){tp[0]*=(PLZ.cal-.4)/r;tp[2]*=(PLZ.cal-.4)/r;tp[1]=M.max(tp[1],2.6)}
 const k=M.min(1,4.5*dt);CAM.p=V.lerp(CAM.p,tp,k);CAM.t=V.lerp(CAM.t,look,M.min(1,6*dt));
 if(G.shake>0){G.shake=M.max(0,G.shake-dt*1.6);CAM.p=V.add(CAM.p,[rnd(-1,1)*G.shake*.25,rnd(-1,1)*G.shake*.25,rnd(-1,1)*G.shake*.25])}}
-function cineStart(c,d=2.6,r=4.5,y=.9){G.cine={t:0,d,c:[...c],a:M.atan2(CAM.p[2]-c[2],CAM.p[0]-c[0]),r,y};R.fx.let=0}
-function cineUpd(rdt){const q=G.cine;if(!q)return false;q.t+=rdt;const u=q.t/q.d;G.ts=lerp(G.ts,u<.7?.3:1,M.min(1,5*rdt));R.fx.let=lerp(R.fx.let,u<.85?.11:0,M.min(1,4*rdt));
+function cineStart(c,d=2.6,r=4.5,y=.9){G.cine={follow:G.mode=='torero'||G.mode=='result'&&G.prevMode=='torero',t:0,d,c:[...c],a:M.atan2(CAM.p[2]-c[2],CAM.p[0]-c[0]),r,y};R.fx.let=0}
+function cineUpd(rdt){const q=G.cine;if(!q)return false;q.t+=rdt;const u=q.t/q.d;G.ts=lerp(G.ts,u<.7?.35:1,M.min(1,5*rdt));R.fx.let=lerp(R.fx.let,u<.85?.11:0,M.min(1,4*rdt));if(q.follow){if(q.t>q.d){G.cine=null;R.fx.let=0}return false}
 let cc=q.c,rr=q.r;if(SCN.ch[0]===W.arena&&C.B&&C.T&&C.T.state=='ok'){cc=V.lerp(C.T.p,C.B.p,.5);rr=M.max(q.r,V.d2(C.T.p,C.B.p)*.9+4)*(innerWidth<innerHeight?1.7:1)}const a=q.a+u*.5;CAM.p=V.lerp(CAM.p,[cc[0]+M.cos(a)*rr,q.y+1+u*.4,cc[2]+M.sin(a)*rr],M.min(1,1.8*rdt));CAM.t=V.lerp(CAM.t,[cc[0],1.05,cc[2]],M.min(1,5*rdt));CAM.fov=lerp(CAM.fov,40,M.min(1,3*rdt));
 if(q.t>q.d){G.cine=null;R.fx.let=0}return true}
 // --- torero jugador
 function CTRL_YAW(){return CAM_YAW()}
+// cámara siempre tras el torero: gira despacio para no marear y se aleja lo justo para ver al toro
+function camTorero(rdt,T,B,want){if(C.fy===undefined)C.fy=want;const busy=T.pase||B.state=='embiste'||B.state=='pasado'||B.state=='arranca';const rate=busy?.75:1.7;C.fy+=clamp(angDiff(C.fy,want),-rate*rdt,rate*rdt);
+const dTB=V.d2(T.p,B.p),asp=innerWidth/M.max(1,innerHeight),mid=V.lerp(T.p,B.p,.3),dist=(6.6+clamp(dTB-6,0,10)*.22)*(asp<1?1.35:1);camFollow(rdt,T.p,[mid[0],1.15,mid[2]],dist,2.55+(asp<1?.6:0),C.fy)}
 // plano general: siempre toro y torero en cuadro, giros lentos y sin saltos entre pases
 function planoGeneral(rdt,T,B){const sep=V.d2(T.p,B.p),mid=V.lerp(T.p,B.p,.45),want=M.atan2(B.p[0]-T.p[0],B.p[2]-T.p[2]);if(C.camY===undefined||C.camReset){C.camY=want;C.camReset=0}
 const busy=T.pase||B.state=='embiste'||B.state=='arranca'||B.state=='pasado';const rate=sep<1.5?0:busy?.1:.5;C.camY+=clamp(angDiff(C.camY,want),-rate*rdt,rate*rdt);
@@ -1174,20 +1178,30 @@ const arr=B.state=='embiste'?(V.d2(B.p,T.p)-1)/M.max(B.v,1.5):9;T.pase.err=arr-d
 function updPase(T,dt,holdKey){const ps=T.pase,B=C.B;const held=holdKey&&ps.u>.4;ps.u+=dt/ps.def.dur*(held?.72:1)*(ps.bs=='embiste'?clamp(B.v/7.5,.62,1.25):1);if(held&&ps.u<.85)ps.held+=dt;
 const lp=T.lureT,dB=V.d2(B.p,T.p),dL=V.len(V.sub(lp,V.add(B.m.head.wpos(),[0,.1,0])));ps.minD=M.min(ps.minD,dB);ps.minL=M.min(ps.minL,dL);
 if(ps.u>.2&&ps.u<.9&&dL<1.25&&B.v>3&&(B.state=='embiste'||B.state=='pasado'))ps.eng=1;
+if(!ps.wh&&ps.u>.38){ps.wh=1;whoosh(T.tool=='capote'?1.1:.8);if(dL<1.6)for(let i=0;i<10;i++)emit(V.add(B.p,[rnd(-.8,.8),.15,rnd(-.8,.8)]),[rnd(-1.2,1.2)+M.sin(B.h)*B.v*.3,rnd(.4,1.3),rnd(-1.2,1.2)+M.cos(B.h)*B.v*.3],rnd(.3,.5),rnd(1.2,2),[.86,.7,.5],.3)}
 if(ps.u>=1){endPase(T);return}}
+function nombraTanda(t,rem){const c=id=>t.filter(x=>x==id).length,n=t.length;
+if(c('veronica')>=3&&rem=='media')return['Lances a la verónica y media',22];if(c('chicuelina')>=2)return['Quite por chicuelinas',18];if(c('gaonera')>=2)return['Quite por gaoneras',20];
+if(c('delantal')>=2)return['Quite por delantales',18];if(c('farol')>=2)return['Quite por faroles',18];if(c('veronica')>=2)return['Tanda de verónicas',14];
+if(c('ayudado')>=2&&rem=='trincherilla')return['Inicio por ayudados y trincherilla',22];if(c('derechazo')>=2&&c('natural')>=1)return['Tanda con cambio de mano',26];
+if(c('natural')>=3)return['Tanda al natural',28];if(c('derechazo')>=4)return['Tanda en redondo',24];if(c('circular')>=1&&n>=2)return['Tanda con circular',24];
+if(c('molinete')+c('manoletina')>=1&&n>=2)return['Tanda adornada',20];if(c('derechazo')>=2)return['Tanda de derechazos',16];if(c('natural')>=2)return['Naturales ligados',20];if(n>=2)return['Serie ligada',12];return null}
+function whoosh(k){const c=AU.c;if(!c)return;const f=noiseHit(c.currentTime,.38,700,1.1,.22*k,'bandpass');if(f)f.frequency.exponentialRampToValueAtTime(2600,c.currentTime+.3)}
 function endPase(T){const ps=T.pase,B=C.B,d=ps.def;T.pase=null;T.lastEnd=G.t;T.pp={def:d,s:ps.s,h0:ps.h0+(d.f(1,ps.s).spin||0)};T.hd=T.pp.h0;
 if(!ps.eng){if(!G.ai&&ps.bs!='embiste'&&B.state!='embiste')say('Pase al aire');return}
 const cerc=ps.minD<.75?1.15:ps.minD<1.5?1:ps.minD<2.4?lerp(1,.45,(ps.minD-1.5)/.9):.3;const TS=G.ai?{arte:1.05,temple:1.15,valor:1}:TOR();const tim=1-clamp(M.abs(ps.err)/(.42*TS.temple),0,1)*.8;const apA=(ps.apA||0)/ps.def.dur;const temple=ps.held>.3?1.2:1;
-const quiet=T.moveAcc<.4?1.12:.95;let combo=(G.t-T.lastEnd2<3.6&&V.d2(T.p,T.lastPos)<2.6)?T.combo+1:1;T.combo=combo;T.lastEnd2=G.t;T.lastPos=[...T.p];T.moveAcc=0;
+const quiet=T.moveAcc<.4?1.12:.95;let combo=(G.t-T.lastEnd2<4.8&&V.d2(T.p,T.lastPos)<3.2)?T.combo+1:1;if(combo==1||!T.tanda)T.tanda=[];T.tanda.push(d.id);T.combo=combo;T.lastEnd2=G.t;T.lastPos=[...T.p];T.moveAcc=0;
 if(T.rep.id===d.id)T.rep.n++;else{T.rep.id=d.id;T.rep.n=1}const vari=T.rep.n>3?.65:1;const bq=.7+.6*B.brav*(.4+.6*B.fuerza);
 if(combo>7){combo=T.combo=1}let pts=d.pts*cerc*tim*temple*quiet*vari*bq*(1+.15*M.min(combo-1,4))*(1+(TS.arte-1)*.6)*(1+.75*clamp(apA,0,1));let txt=apA>.4?'¡Apurando!':'¡Olé!';
 if(!T.used)T.used={};if(!T.used[d.id]){T.used[d.id]=1;pts+=3}
 if(ps.sd>10){pts*=1.25;txt='¡Cite de largo!'}const chb=B.ch;if(chb&&chb.vence>.3&&!ps.hook){if(ps.s==-chb.piton&&ps.minD<1.6){pts*=1.15;txt='¡Por el pitón difícil!'}}
 if(ps.hook){pts*=.55;txt=ps.ach?'Achuchón':'Enganchón'}
-if(d.remate&&combo>=3){pts+=8+combo*1.5;txt='¡Remate de tanda!';T.combo=0;R.pan=M.min(1,R.pan+.15)}
-if(d.remate){B.state='parado';B.stT=0;B.v*=.4;if(!G.ai&&G.mode=='torero'&&(combo>=3||pts>=12)){T.desp={t:0};B.calmT=G.t+4.8;setTimeout(()=>{if(T.desp)say('Se gusta: le da la espalda al toro',0,'gold')},700);PUB.standT=M.max(PUB.standT,3)}}
+let comb=null;if(d.remate&&combo>=2){comb=nombraTanda(T.tanda.slice(0,-1),d.id);pts+=8+combo*1.5;txt='¡Remate de tanda!';T.combo=0;R.pan=M.min(1,R.pan+.15);if(comb){pts+=comb[1]*(.8+.2*TS.arte);T.tandas=(T.tandas||0)+1}}
+if(d.remate){B.state='parado';B.stT=0;B.v*=.4;if(!G.ai&&G.mode=='torero'&&(combo>=3||pts>=12)){B.calmT=G.t+2.5;PUB.standT=M.max(PUB.standT,3)}}
 pts=M.round(pts);C.score+=pts;try{pubPase(pts,0,!!d.remate)}catch(e){}C.passCount++;C.best=M.max(C.best,pts);R.exc=M.min(1,(R.exc||0)+pts/22);ole(clamp(pts/14,.4,1.3));
-if(!G.ai){say(`${txt} ${d.n} +${pts}`,1,pts>=14?'gold':'');if(d.remate&&combo>=3)cineStart(V.lerp(T.p,B.p,.5),2.6)}
+if(!G.ai){const gr=ps.hook?'':ps.minD<.75&&ps.held>.3?' · ceñido y templado':ps.minD<.75?' · ceñido':ps.held>.3?' · templado':'';
+ if(comb){say(`${comb[0]} +${pts}`,1,'gold');cineStart(V.lerp(T.p,B.p,.5),2.8);ovacion(1.2,5);if(!C.musicOn&&G.mode=='torero'){C.musicOn=1;musica(true)}R.exc=1;setTimeout(()=>ole(1.4),350)}
+ else{say(`${txt} ${d.n} +${pts}${combo>1&&!d.remate?' · ligado ×'+combo:''}${gr}`,1,pts>=14?'gold':'');if(d.remate&&combo>=3)cineStart(V.lerp(T.p,B.p,.5),2.4)}}
 T.log.push({n:d.n,pts,combo});if(!G.ai)dirPase(d,combo);if(C.score>150&&!C.musicOn&&G.mode=='torero'){C.musicOn=1;musica(true)}}
 function cogida(T){const B=C.B;T.state='toss';T.pase=null;T.cite=0;T.cogidas++;T.toss={t:0,y:0,vy:6.2,rx:0,rz:0,dir:fwdOf(B.h),down:0};T.dropped=1;gasp();shake(.7);PUB.standT=M.max(PUB.standT,1.6);R.exc=1;
 if(G.mode=='torero'){C.score=M.max(0,C.score-12);say('¡Cogida!',1,'red')}else{say('Derrote al bulto: no suma bravura',1,'red')}
@@ -1227,17 +1241,17 @@ if(T.spd>.5&&!T.toss){T.stepAcc=(T.stepAcc||0)+T.spd*dt;if(T.stepAcc>.7){T.stepA
 R.exc=M.max(0,(R.exc||0)-dt*.18);R.pan=M.max(0,R.pan-dt*.01);crowdLevel(.1+R.exc*.35);
 if(G.mode=='torero'&&C.score>240)R.pan=M.max(R.pan,.5);
 // HUD
-const sc=G.mode=='toro'?C.brav:C.score;$('score').textContent=M.round(sc);$('combo').textContent=G.mode=='torero'&&T.combo>1?`Tanda ×${T.combo}`:'';bar('fzBar',B.fuerza);bar('amb',R.exc);
+const sc=G.mode=='toro'?C.brav:C.score;$('score').textContent=M.round(sc);{const ok=G.mode=='torero'&&T.tanda&&T.tanda.length&&G.t-T.lastEnd2<4.8&&T.combo>0;const tx=ok?'Tanda: '+T.tanda.map(id=>{const q=PASES[T.tool].find(p=>p.id==id)||PASES.capote.concat(PASES.muleta).find(p=>p.id==id);return q?q.n.replace('Pase de ','').replace(' verónica','').replace('Larga cambiada de rodillas','Larga'):id}).join(' › ')+(T.combo>=2?' — remata':' — liga'):'';const el=$('tanda');if(el.textContent!==tx){el.textContent=tx;el.hidden=!tx}if($('combo').textContent)$('combo').textContent=''}bar('fzBar',B.fuerza);bar('amb',R.exc);
 const tl=G.mode=='toro'?240-C.t:(C.tercio=='capote'?100-C.tT:220-C.tT);$('clock').textContent=fmtT(M.max(0,tl));$('avisos').textContent=C.avisos?'●'.repeat(C.avisos):'';
 // medidor de distancia
 const dd=V.d2(B.p,T.p),charging=B.state=='embiste';const mt=$('meter');mt.style.opacity=G.mode=='torero'&&(charging||T.cite>.3)?1:.25;
 const ideal=charging?1+B.v*(PASES[T.tool][0].dur*.42):6;$('mk').style.left=clamp((1-dd/14)*100,0,100)+'%';$('mz').style.left=clamp((1-(ideal+1.2)/14)*100,0,100)+'%';$('mz').style.width=clamp(2.4/14*100,0,100)+'%';
 rhythmCue(G.mode=='torero'&&charging&&M.abs(dd-ideal)<1.2&&!T.pase);$('mtxt').textContent=charging?(M.abs(dd-ideal)<1.2?'¡Ahora!':dd>ideal?'Aguanta…':'¡Tarde!'):(B.state=='fijo'?(G.mode=='toro'?'':TOUCH?'Mantén Citar':'Cita con E'):B.state=='tablas'?'Toro aquerenciado':'');
 // cámara
-if(!cineUpd(rdt)){G.ts=lerp(G.ts,1,M.min(1,4*rdt));CAM.fov=lerp(CAM.fov,G.mode=='toro'&&B.v>7?66:52,M.min(1,3*rdt));
+if(!cineUpd(rdt)){if(!G.cine)G.ts=lerp(G.ts,1,M.min(1,4*rdt));CAM.fov=lerp(CAM.fov,G.cine?40:G.mode=='toro'&&B.v>7?66:52,M.min(1,3*rdt));
  if(G.mode=='toro'){camFollow(rdt,B.p,V.add(V.madd(B.p,fwdOf(B.h),5),[0,1.2,0]),7.2,3.2,B.h)}
  else{const mid=V.lerp(T.p,B.p,.32),yaw=M.atan2(B.p[0]-T.p[0],B.p[2]-T.p[2]);
-  if(G.opts.cam==='torero')camFollow(rdt,T.p,[mid[0],1.15,mid[2]],6.4,2.5,yaw);else planoGeneral(rdt,T,B)}}
+  camTorero(rdt,T,B,yaw)}}
 R.fx.spd=G.mode=='toro'?clamp((B.v-7)/4,0,1)*.6:0;R.fx.vig=G.mode=='toro'&&B.v>7?.2:0;
 ENV.sh0c=[T.p[0]*.5+B.p[0]*.5,0,T.p[2]*.5+B.p[2]*.5];ENV.sh0h=M.max(9,V.d2(T.p,B.p)*.6+5);ENV.sh1c=[0,0,0];ENV.sh1h=PLZ.outR+4;
 // final modo toro
@@ -1283,6 +1297,7 @@ function stats(a){$('rStats').innerHTML=a.map(([k,v])=>`<div><span>${k}</span><b
 function show(id){$(id).hidden=false}function hide(id){$(id).hidden=true}
 // entorno de tarde y de mañana
 const ENV_TARDE={sun:V.norm([-.72,.4,.52]),sunC:[5.6,4.4,3.1],skyT:[.08,.2,.6],skyH:[.9,.75,.6],gnd:[.45,.35,.22],fogC:[.82,.7,.56],fogD:.0016,cloud:.45,cloudC:[1.3,1.08,.92],exp:1.12,amb:.55};
+
 // ================= DIRECTOR DE LIDIA (ritmo de la partida) =================
 const DIR={
 torero:[
@@ -1352,8 +1367,9 @@ else T.spd=lerp(T.spd,0,M.min(1,5*dt));clampT(T)}
 function clampT(T){const r0=M.hypot(T.p[0],T.p[2]);if(r0>PLZ.R-.6){T.p[0]*=(PLZ.R-.6)/r0;T.p[2]*=(PLZ.R-.6)/r0}}
 // ================= PAUSA =================
 function pauseOn(){if(!['torero','toro','encierro','bous'].includes(G.mode)||G.paused)return;G.paused=true;$('pKeys').innerHTML=$('keys').innerHTML;$('pMode').textContent=G.mode=='bous'?(BOU.night?'Bou embolat':'Bous al carrer'):G.mode=='encierro'?'Encierro de San Fermín':G.mode=='toro'?'Eres el toro':(C.tercio=='muleta'?'Tercio de muleta':'Tercio de capote');
-$('pQ').value=G.opts.q;show('pause');if(AU.c)AU.c.suspend();$('pResume').focus()}
+show('pause');if(AU.c)AU.c.suspend();$('pResume').focus()}
 function pauseOff(){if(!G.paused)return;G.paused=false;hide('pause');if(AU.c)AU.c.resume();G.keys={}}
+
 // ================= MATADORES (ficticios, con estilos reales) =================
 const TOREROS=[
 {n:'Curro Albero',a:'El Sevillano',est:'Artista',traje:'Grana y oro',arte:1.25,temple:1.2,valor:.8,espada:.85,poder:.85,skin:[.45,.27,.17],h:.98,desc:'Verónica lenta y muleta de cartel. Sufre con la espada.'},
@@ -1427,6 +1443,7 @@ function aoMesh(ex){const g=disc(1,5,28);for(let k=0;k<g.vc;k++)g.p[k*3+2]*=ex;r
 function aoUpd(){if(!W.arena||!C.B||!C.T)return;if(!W.aoB){W.aoB=W.arena.add(new Node(aoMesh(2.3),mat({mode:5,transp:1,alpha:.62})));W.aoT=W.arena.add(new Node(aoMesh(1),mat({mode:5,transp:1,alpha:.5})));W.aoB.cast=W.aoT.cast=false}
 const B=C.B,T=C.T,sz=B.m.sz||1;W.aoB.p=[B.p[0],.025,B.p[2]];W.aoB.r=[0,B.h,0];W.aoB.s=.62*sz*(1+(B.dob||0)*.5);
 W.aoT.vis=T.state=='ok'||!!T.toss;W.aoT.p=[T.p[0],.03,T.p[2]];W.aoT.s=.42}
+
 // ================= CARTEL: toreros, ganaderías, sorteo de toros =================
 Object.assign(TRAJES,{'Rosa y oro':{c:[.62,.2,.3],g:[1,.72,.3]},'Celeste y plata':{c:[.22,.42,.66],g:[.85,.87,.9]},'Nazareno y oro':{c:[.11,.025,.13],g:[1,.72,.3]},
 'Corinto y oro':{c:[.2,.015,.05],g:[1,.72,.3]},'Marino y plata':{c:[.015,.025,.09],g:[.85,.87,.9]},'Caña y oro':{c:[.55,.42,.22],g:[1,.72,.3]}});
@@ -1523,6 +1540,7 @@ function publicoTick(dt){const m=G.mode,corr=m=='torero'||m=='toro'||(m=='result
 function pubPase(pts,combo,remate){if(pts>=10||remate)aplauso(clamp(pts/18,.4,1.3),remate?3.2:1.6);if(remate&&pts>=14)PUB.standT=M.max(PUB.standT,2.2);if(C.score>=180&&remate)chantTorero()}
 function pubResult(kind){if(kind=='gloria'){ovacion(1.3,9);lanzar('flor',40);lanzar('sombrero',14);setTimeout(chantTorero,1200)}
  else if(kind=='bien'){ovacion(1,5);lanzar('flor',12)}else if(kind=='bronca'){pitos();lanzar('almohadilla',30)}}
+
 // ================= BOUS AL CARRER: plaza de pueblo, recortadores y bou embolat =================
 if(!V.d)V.d=(a,b)=>M.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);
 const BOU={};
@@ -1872,6 +1890,7 @@ else{title='Sin premio';sub='El toro se ha impuesto esta vez.'}
 $('rTitle').textContent=title;$('rSub').textContent=sub;$('rPan').hidden=true;const c=BOU.cnt;
 stats([['Puntos del jurado',sc],['Mejor ejecución',BOU.best?`${BOU.best.n} (${BOU.best.tot})`:'—'],['Recortes · Reversos · Engaños',`${c[1]||0} · ${c[5]||0} · ${c[6]||0}`],['Quiebros (de rodillas)',`${c[2]||0} (${c[7]||0})`],['Saltos · Garrocha · Anillas',`${c[3]||0} · ${c[8]||0} · ${c[4]||0}`],['Revolcones',BOU.revol],['Modalidad',night?'Bou embolat':'Concurso']]);
 hide('hud');show('result');$('again').focus()}
+
 // ================= CONTROLES SENCILLOS: un botón de acción, citar automático y pase asistido =================
 const AS={prev:0,buf:null,pi:0,kSig:'',lab:'',ring:0};
 const PH={};addEventListener('keydown',e=>{PH[e.code]=1});addEventListener('keyup',e=>{PH[e.code]=0});addEventListener('blur',()=>{for(const k in PH)PH[k]=0});
@@ -1895,19 +1914,20 @@ if(C.askInd&&(PH.KeyI||G.keys.KeyI))asTap('KeyI');
 if(T.state!='ok'||T.refugio){AS.buf=null;AS.lab='Torear';return}
 const d=V.d2(B.p,T.p),charging=B.state=='embiste'&&B.v>2.5,f=fwdOf(B.h),ahead=(T.p[0]-B.p[0])*f[0]+(T.p[2]-B.p[2])*f[2];
 if(!T.pase){const want=B.state!='salida'&&d<17&&!(charging&&ahead<0);if(want&&!key('KeyE'))G.keys.KeyE=1;
- const mv=G.keys.KeyW||G.keys.KeyA||G.keys.KeyS||G.keys.KeyD;if(!mv&&d<3.6&&B.v<2&&B.state!='salida'){const aw=V.norm([T.p[0]-B.p[0],0,T.p[2]-B.p[2]]),cy=CTRL_YAW(),iz=aw[0]*M.sin(cy)+aw[2]*M.cos(cy),ix=-aw[0]*M.cos(cy)+aw[2]*M.sin(cy);G.keys.KeyW=iz>.38?1:0;G.keys.KeyS=iz<-.38?1:0;G.keys.KeyD=ix>.38?1:0;G.keys.KeyA=ix<-.38?1:0}
+
  const def=autoPase(T);AS.lab=TOUCH?'Torear':def.n.replace('Pase de ','');AS.sug=def.k;AS.ideal=(AS.buf?AS.buf.def:def).dur*.42;
  if(actHit)asPress(T,B,def,0);
  AS.dk=AS.dk||{};for(const q of PASES[T.tool]){const on=!!(PH['Digit'+q.k]||PH['Numpad'+q.k]||G.keys['T'+q.k]);if(on&&!AS.dk[q.k]&&!T.pase)asPress(T,B,q,0);AS.dk[q.k]=on;G.keys['Digit'+q.k]=0;G.keys['Numpad'+q.k]=0}
  AS.ck=AS.ck||{};for(let i=1;i<=4;i++){const on=!!G.keys['C'+i];if(on&&!AS.ck[i]&&!T.pase)asPress(T,B,catDef(T,i),i);AS.ck[i]=on}
  if(T.pase)return;
+ if(charging&&ahead>0&&C.passCount<3&&AS.tut!==C.lastCharge&&d<11){AS.tut=C.lastCharge;say(TOUCH?'Pulsa un pase cuando el aro dorado se cierre':'Pulsa Espacio o 1-8 cuando el aro dorado se cierre',0)}
  if(AS.buf){AS.buf.t+=dt;const arr=(d-1)/M.max(B.v,1.5);
   const bd=AS.buf.def;if(charging&&ahead>0&&arr<=bd.dur*.42+.02)asFire(T,B,bd,AS.buf.cat);
   else if(!charging&&AS.buf.t>1.8)AS.buf=null}}
 else{const held=act||[1,2,3,4].some(i=>G.keys['C'+i])||PASES[T.tool].some(q=>PH['Digit'+q.k]||G.keys['T'+q.k]);G.keys['Digit'+T.keyK]=held?1:0;if(held||PH.ShiftLeft||PH.ShiftRight)G.keys.ShiftLeft=1;AS.lab='Templar';AS.buf=null}}
 function asToro(dt,act){const B=C.B,T=C.T;if(!B)return;AS.lab='Embestir';if(!act){G.keys.Space=0;return}
 const tg0=lureOf(T)||T.lureT||V.madd(T.p,rightOf(T.hd),1.6),aw=V.norm([tg0[0]-T.p[0],0,tg0[2]-T.p[2]]),tg=V.madd(tg0,aw,.7),d=V.d2(B.p,tg),ang=angDiff(B.h,M.atan2(tg[0]-B.p[0],tg[2]-B.p[2]));
-const manual=G.keys.KeyA||G.keys.KeyD;if(!manual){G.keys.KeyA=ang>.08?1:0;G.keys.KeyD=ang<-.08?1:0}G.keys.KeyW=1;G.keys.Space=B.fuerza>.22&&M.abs(ang)<.7?1:0;if(d<3.6)G.keys.ShiftLeft=1;AS.lab=d<3.6?'Humillar':'Embestir'}
+G.keys.KeyW=1;G.keys.Space=B.fuerza>.05?1:0;AS.lab='Embestir'}
 function asEncierro(dt,act,actHit){if(!E.P)return;if(!G.keys.KeyS)G.keys.KeyW=1;G.keys.Space=actHit?1:0;if(actHit)G.prev.Space=0;
 const P=E.P,a=pAt(P.s);AS.lab=SEGS[a.seg].fence&&M.abs(P.l)>a.w/2-2.2?'Vallado':'Esquivar'}
 function asBous(dt,act,actHit){const P=BOU.P,B=BOU.B;if(!P)return;G.keys.Space=0;
@@ -1952,6 +1972,7 @@ function ambience(dt){const m=G.mode;if(R.q.px<.6)return;const arena=SCN.ch[0]==
 if((arena||(pueblo&&!BOU.night))&&M.random()<dt*14){const c=V.lerp(CAM.p,CAM.t,.5);emit([c[0]+rnd(-6,6),rnd(.4,3.5),c[2]+rnd(-6,6)],[rnd(-.08,.08),rnd(-.02,.05),rnd(-.08,.08)],rnd(.012,.022),rnd(3,6),[2.4,2.1,1.6],.5,0,1)}
 if(pueblo&&BOU.night&&BOU.B&&M.random()<dt*2.2){const B=BOU.B,tp=hornTips(B),mid=V.lerp(tp[0],tp[1],.5),f=fwdOf(B.h);const n=[mid[0]+f[0]*.32*B.m.sz,mid[1]-.42*B.m.sz,mid[2]+f[2]*.32*B.m.sz];
  for(let i=0;i<3;i++)emit(n,[f[0]*.6+rnd(-.1,.1)+M.sin(B.mh)*B.v*.5,rnd(-.05,.1),f[2]*.6+rnd(-.1,.1)+M.cos(B.mh)*B.v*.5],.08,rnd(.8,1.3),[.5,.5,.55],.18)}}
+
 // ================= ENCIERRO DE SAN FERMÍN =================
 const SEGS=[{n:'Cuesta de Santo Domingo',len:280,w:7.2,turn:-8,slope:.032,fence:0},{n:'Plaza del Ayuntamiento',len:50,w:13,turn:22,slope:0,fence:1},
 {n:'Calle Mercaderes',len:95,w:7,turn:-14,slope:0,fence:0},{n:'Curva de Estafeta',len:11,w:7.6,turn:90,slope:0,fence:0,curve:1},
@@ -2077,6 +2098,7 @@ const t={plaza:['¡Dentro de la plaza!','Has llegado al ruedo delante de la mana
 $('rTitle').textContent=t[0];$('rSub').textContent=t[1];$('rPan').hidden=true;
 stats([['Puntos de carrera',M.round(E.pts)],['Metros recorridos',M.round(E.max)+' m'],['Segundos en los cuernos',E.horn.toFixed(1)+' s'],['Tiempo',fmtT(M.max(0,E.t))]]);hide('hud');show('result');$('again').focus()}
 const ENV_MANANA={sun:V.norm([.62,.33,-.71]),sunC:[4.6,4.0,3.3],skyT:[.17,.36,.76],skyH:[.86,.84,.8],gnd:[.36,.33,.29],fogC:[.78,.77,.75],fogD:.0028,cloud:.3,cloudC:[1.2,1.15,1.1],exp:1.15,amb:.6};
+
 // ================= ARRANQUE =================
 R.fx={};
 const QUAL={alta:{px:1,sh0:2048,sh1:2048,msaa:4,crowd:.85},media:{px:.85,sh0:2048,sh1:1024,msaa:4,crowd:.62},baja:{px:.62,sh0:1024,sh1:1024,msaa:0,crowd:.35}};
@@ -2096,11 +2118,11 @@ function frame(now){requestAnimationFrame(frame);const rdt=M.min(.05,last?(now-l
 if(hit('Escape')||hit('KeyP')){if(G.paused)pauseOff();else if(['torero','toro','encierro','bous'].includes(G.mode))pauseOn();else if(G.mode=='result')goMenu()}
 if(G.paused){try{render(SCN)}catch(e){}G.prev={...G.keys};return}
 const dt=rdt*G.ts;G.dt=dt;G.t+=dt;R.T+=dt;
-try{assist(dt);if(G.mode=='torero'||G.mode=='toro')updCorrida(dt,rdt);else if(G.mode=='encierro')updEncierro(dt,rdt);else if(G.mode=='bous')updBous(dt,rdt);else updMenu(dt,rdt);if(G.mode!='bous'&&G.prevMode!='bous')R.pl=null;
+try{if(G.mode!='torero'){const tq=$('tanda');if(!tq.hidden)tq.hidden=true}assist(dt);if(G.mode=='torero'||G.mode=='toro')updCorrida(dt,rdt);else if(G.mode=='encierro')updEncierro(dt,rdt);else if(G.mode=='bous')updBous(dt,rdt);else updMenu(dt,rdt);if(G.mode!='bous'&&G.prevMode!='bous')R.pl=null;
  touchCtx();publicoTick(rdt);ambience(dt);updParts(dt);pasoTick();if(G.mode!='encierro'&&G.prevMode!='encierro'&&G.mode!='bous'&&G.prevMode!='bous')aoUpd();if(TRK.dirty&&R.frame%6==0){texUpd(R.trkTex,TRK.c);TRK.dirty=0}render(SCN)}catch(e){console.error(e);if(!frame.err){frame.err=1;$('err').hidden=false;$('err').textContent='Error: '+e.message}}
 G.prev={...G.keys};
 // calidad automática
-qT+=rdt;if(qT>4&&G.mode!='menu'&&G.fpsAcc.length>=90){const avg=G.fpsAcc.reduce((a,b)=>a+b,0)/G.fpsAcc.length;if(1/avg<27&&R.q.px>.56){R.q.px=M.max(.55,R.q.px-.12);R.q.msaa=R.q.px<.7?0:R.q.msaa;rAlloc();qT=0;toast('Calidad ajustada para mantener la fluidez')}else qT=0}}
+qT+=rdt;if(qT>4&&G.mode!='menu'&&G.fpsAcc.length>=90){const avg=G.fpsAcc.reduce((a,b)=>a+b,0)/G.fpsAcc.length;if(1/avg<20&&R.q.px>.8){R.q.px=M.max(.78,R.q.px-.08);rAlloc();qT=0}else qT=0}}
 function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
 // controles táctiles: joystick flotante + botonera en arco contextual
 const TOUCH=matchMedia('(pointer:coarse)').matches;if(TOUCH)document.documentElement.classList.add('touch');
@@ -2154,29 +2176,27 @@ function touchCtx(){if(!TOUCH||$('touch').hidden)return;padInit();const sp=touch
  addEventListener('pointermove',e=>{if(e.pointerId!==id)return;G.cam.yaw-=(e.clientX-lx)*.006;G.cam.pitch=clamp(G.cam.pitch+(e.clientY-ly)*.004,-.25,.6);lx=e.clientX;ly=e.clientY});
  const up=e=>{if(e.pointerId===id)id=null};addEventListener('pointerup',up);addEventListener('pointercancel',up)}
 // menú
-function setCtrl(v){G.opts.ctrl=v;document.documentElement.classList.toggle('simple',v!=='experto');$('optCtrl').value=v;$('pCtrl').value=v;TC.sig='';AS.kSig='';if(v=='experto'&&C.T&&(G.mode=='torero'||G.mode=='toro'))$('keys').innerHTML=G.mode=='toro'?keysToro():keysTorero();save()}
-function fillMenu(){cartelInit();setCtrl(G.opts.ctrl||'facil');$('optCtrl').onchange=e=>setCtrl(e.target.value);const sc=v=>{if(v!='torero')v='plano';G.opts.cam=v;$('optCam').value=v;$('pCam').value=v;save()};sc(G.opts.cam||'tv');$('optCam').onchange=e=>sc(e.target.value);$('pCam').onchange=e=>sc(e.target.value);$('pCtrl').onchange=e=>{setCtrl(e.target.value);$('pKeys').innerHTML=$('keys').innerHTML};
-$('optSuerte').value=G.opts.suerte||'si';$('optSuerte').onchange=e=>{G.opts.suerte=e.target.value;save()};
-$('optQ').value=G.opts.q;$('optQ').onchange=e=>{setQuality(e.target.value);save()};
-$('optDif').onchange=e=>{G.diff=+e.target.value};
+function setCtrl(v){v='facil';G.opts.ctrl=v;document.documentElement.classList.toggle('simple',true);TC.sig='';AS.kSig='';if(v=='experto'&&C.T&&(G.mode=='torero'||G.mode=='toro'))$('keys').innerHTML=G.mode=='toro'?keysToro():keysTorero();save()}
+function fillMenu(){cartelInit();setCtrl('facil');G.opts.cam='torero';G.opts.suerte='si';G.opts.q='alta';$('optDif').value=String(G.opts.dif||1);G.diff=+(G.opts.dif||1);
+$('optDif').onchange=e=>{G.diff=+e.target.value;G.opts.dif=G.diff;save()};
 const go=m=>{auInit();if(AU.c&&AU.c.state=='suspended')AU.c.resume();hide('menu');if(m=='encierro'){$('loadTxt').textContent='Engalanando la calle Estafeta…';show('load');setTimeout(()=>{startEncierro();hide('load');setTouch()},40)}else{startCorrida(m);setTouch()}};
 window.goBous=id=>{auInit();if(AU.c&&AU.c.state=='suspended')AU.c.resume();hide('menu');$('loadTxt').textContent=W.pueblo?'Sale el toro…':'Montando los cadafals…';show('load');setTimeout(()=>{startBous(id);hide('load');setTouch()},40)};
 $('bBous').onclick=()=>openPick('bous');$('bTorero').onclick=()=>go('torero');$('bToro').onclick=()=>go('toro');$('bEnc').onclick=()=>go('encierro');
 $('pauseBtn').onclick=()=>pauseOn();$('pResume').onclick=pauseOff;$('pMenu').onclick=goMenu;
 $('pRestart').onclick=()=>{const m=G.mode;pauseOff();musica(false);G.cine=null;G.ts=1;R.fx={};if(m=='encierro')startEncierro();else if(m=='bous')startBous(BOU.mod);else startCorrida(m);setTouch()};
-$('pQ').onchange=e=>{setQuality(e.target.value);$('optQ').value=e.target.value;save()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseOn()});
 $('again').onclick=()=>{const m=G.prevMode;G.prevMode=null;if(m=='encierro'){hide('result');startEncierro()}else if(m=='bous'){hide('result');startBous(BOU.mod)}else startCorrida(m);setTouch()};$('toMenu').onclick=goMenu}
 function save(){try{localStorage.setItem('embestida',JSON.stringify(G.opts))}catch(e){}}
 function load(){try{const o=JSON.parse(localStorage.getItem('embestida')||'null');if(o)Object.assign(G.opts,o)}catch(e){}}
 async function boot(){if(!gl){$('loadTxt').textContent='Tu navegador no tiene WebGL2. Prueba con Chrome, Edge, Firefox o Safari actualizados.';return}
-load();if(!QUAL[G.opts.q])G.opts.q='media';G.diff=1;
+load();G.opts.q='alta';G.diff=+(G.opts.dif||1);
 const step=t=>new Promise(r=>{$('loadTxt').textContent=t;setTimeout(r,30)});
-try{await step('Tejiendo el capote…');makeTextures();rInit();setQuality(TOUCH&&G.opts.q=='alta'?'media':G.opts.q);
+try{await step('Tejiendo el capote…');makeTextures();rInit();setQuality('alta');
 await step('Levantando los tendidos…');buildArenaWorld();
 await step('Embarcando al toro…');fillMenu();menuScene();CAM.p=[8,2,8];
 hide('load');show('menu');requestAnimationFrame(frame)}catch(e){console.error(e);$('loadTxt').textContent='No se pudo iniciar: '+e.message}}
 window.__G=G;boot();
+
 </script>
 <script src="app.js"></script>
 </body>
