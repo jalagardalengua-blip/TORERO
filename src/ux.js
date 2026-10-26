@@ -20,7 +20,7 @@ if(C.kill){G.keys.Space=act?1:0;if(actHit)asTap('Space');AS.buf=null;AS.lab=C.ki
 if(C.askInd&&(PH.KeyI||G.keys.KeyI))asTap('KeyI');
 if(T.state!='ok'||T.refugio){AS.buf=null;AS.lab='Torear';return}
 const d=V.d2(B.p,T.p),charging=B.state=='embiste'&&B.v>2.5,f=fwdOf(B.h),ahead=(T.p[0]-B.p[0])*f[0]+(T.p[2]-B.p[2])*f[2];
-if(!T.pase){const want=B.state!='salida'&&d<17&&!(charging&&ahead<0);if(want&&!key('KeyE'))G.keys.KeyE=1;
+if(!T.pase){
 
  const def=autoPase(T);AS.lab=TOUCH?'Torear':def.n.replace('Pase de ','');AS.sug=def.k;AS.ideal=(AS.buf?AS.buf.def:def).dur*.42;
  if(actHit)asPress(T,B,def,0);
@@ -44,11 +44,11 @@ function asBous(dt,act,actHit){const P=BOU.P,B=BOU.B;if(!P)return;G.keys.Space=0
 if(PH.KeyQ||G.keys.Ref){if(!AS.refH)asTap('Space');AS.refH=1}else AS.refH=0;
 if(P.state!='ok'){AS.buf=null;AS.lab=P.state=='safe'?'Salir':'Recortar';if(P.state=='safe'&&actHit)asTap('Space');return}
 const tgtMe=B.state=='arranca'&&B.tgt&&B.tgt.isP,d=V.d2(B.p,P.p),f=fwdOf(B.h),r=rightOf(B.h),rel=V.sub(bRuedo(P.p),B.p),al=V.dot(rel,f),lt=V.dot(rel,r);
-if(!tgtMe&&P.v<1.2&&d<26&&B.state!='atado'&&BOU.t>0&&!key('KeyE'))G.keys.KeyE=1;
+
 const beside=M.abs(lt)<1.7&&al>-.2&&al<1.8*B.m.sz&&B.v>1;const k=beside?4:(P.v>2.2?1:2);AS.lab=k==4?'Anilla':k==1?'Recorte':'Quiebro';AS.ideal={1:.3,2:.36,3:.5,4:0}[k];
 const garr=P.v>3.2&&d>4&&d<10,fig=P.v>2.2?6:7;AS.bl={salto:garr?'Garrocha':'Salto',fig:fig==6?'Engaño':'De rodillas'};
-AS.fk=AS.fk||{};const FIG={3:PH.KeyX||(G.keys.Salto&&!garr)||PH.Digit3,5:PH.KeyR||G.keys.Rev||PH.Digit5,6:PH.Digit6||G.keys.Eng||(G.keys.Fig&&fig==6),7:PH.KeyK||G.keys.Rod||(G.keys.Fig&&fig==7)||PH.Digit7,8:PH.KeyG||G.keys.Garr||(G.keys.Salto&&garr)||PH.Digit8,1:PH.Digit1,2:PH.Digit2||G.keys.Q2};
-for(const kk in FIG){const on=!!FIG[kk];if(on&&!AS.fk[kk])AS.buf={t:0,k:+kk,fix:1};AS.fk[kk]=on;G.keys['Digit'+kk]=0}
+AS.fk=AS.fk||{};const FIG={3:PH.KeyX||(G.keys.Salto&&!garr)||PH.Digit3||G.keys.B3,4:G.keys.B4,5:PH.KeyR||G.keys.Rev||PH.Digit5||G.keys.B5,6:PH.Digit6||G.keys.Eng||(G.keys.Fig&&fig==6)||G.keys.B6,7:PH.KeyK||G.keys.Rod||(G.keys.Fig&&fig==7)||PH.Digit7||G.keys.B7,8:PH.KeyG||G.keys.Garr||(G.keys.Salto&&garr)||PH.Digit8||G.keys.B8,1:PH.Digit1||G.keys.B1,2:PH.Digit2||G.keys.Q2||G.keys.B2};
+for(const kk in FIG){const on=!!FIG[kk];G.keys['Digit'+kk]=0;if(on&&!AS.fk[kk]){if(kk=='4')asTap('Digit4');else AS.buf={t:0,k:+kk,fix:1}}AS.fk[kk]=on}
 if(actHit){if(k==4){asTap('Digit4');AS.buf=null}else AS.buf={t:0,k}}
 if(AS.buf&&!P.man){AS.buf.t+=dt;const kk=AS.buf.fix?AS.buf.k:(k==4?1:k);const ideal={1:.3,2:.36,3:.45,5:.3,6:.4,7:.4,8:.46}[kk];AS.ideal=ideal;
  if(tgtMe){const arr=bArr(B,P.p);if(arr<=ideal+.02){asTap('Digit'+kk);AS.buf=null}}
@@ -59,7 +59,7 @@ if(!simple()){ringUpd();return}
 const act=!!(PH.Space||PH.Enter||PH.NumpadEnter||G.keys.Act),actHit=act&&!AS.prev;AS.prev=act;
 if(m=='torero')asTorero(dt,act,actHit);else if(m=='toro')asToro(dt,act);else if(m=='encierro')asEncierro(dt,act,actHit);else asBous(dt,act,actHit);
 const b=document.querySelector('#pad .ka');if(b&&b.dataset.k=='Act'&&m!='torero'){const sp=b.querySelector('span');if(sp&&sp.textContent!==AS.lab)sp.textContent=AS.lab;b.classList.toggle('armed',!!AS.buf)}
-document.querySelectorAll('#pad .fb').forEach(x=>{x.classList.toggle('sug',m=='torero'&&x.dataset.k=='T'+AS.sug);x.classList.toggle('armed',!!(AS.buf&&AS.buf.def&&x.dataset.k=='T'+AS.buf.def.k))});
+document.querySelectorAll('#pad .fb,#pad .pg').forEach(x=>{x.classList.toggle('sug',m=='torero'&&x.dataset.k=='T'+AS.sug);x.classList.toggle('armed',!!(AS.buf&&AS.buf.def&&x.dataset.k=='T'+AS.buf.def.k))});
 keysSimple();ringUpd();$('meter').classList.toggle('keep',!!(m=='torero'&&C.kill))}
 function keysSimple(){const m=G.mode;const sig=m+(C.tercio||'')+(m=='torero'&&C.kill?'k':'');if(sig===AS.kSig&&$('keys').innerHTML===AS.kHtml)return;AS.kSig=sig;let h='';
 const mv='<b>W A S D</b> moverse · <b>Shift</b> correr';

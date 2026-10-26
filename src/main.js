@@ -37,11 +37,11 @@ function touchSpec(){const m=G.mode,sim=simple();
  if(m=='torero'){const T=C.T;if(!T)return null;
   if(C.kill){const ph=C.kill.ph;return{face:{a:ph=='perfil'?[sim?'Act':'Space','Estocada']:null},hint:ph=='perfil'?'Entra cuando la marca cruce el centro':ph=='cuadrar'?'Cuadrando al toro…':''}}
   const P=padPases(T,q=>(sim?'T':'Digit')+q.k);const mini=[];
-  if(sim){if(C.tercio=='muleta')mini.push(['KeyF','Matar']);if(C.askInd)mini.push(['KeyI','Indultar','g']);const cf=i=>['C'+i,short(catDef(T,i).n)];return{face:{a:cf(1),b:cf(2),x:cf(3),y:cf(4)},alt:null,L:['Ref','Refugio'],mini}}
+  if(sim){if(C.tercio=='muleta')mini.push(['KeyF','Matar']);if(C.askInd)mini.push(['KeyI','Indultar','g']);return{face:{},grid:PASES[T.tool].map(q=>['T'+q.k,q.n.replace('Larga cambiada de rodillas','Larga de rodillas').replace('Ayudado por alto','Ayudado')]),L:['KeyE','Citar'],L2:['Ref','Refugio'],mini}}
   mini.push(['Space','Burladero']);mini.push(T.tool=='capote'?['Tab','Muleta']:['KeyF','Matar']);if(C.askInd)mini.push(['KeyI','Indultar','g']);return{...P,L:['KeyE','Citar'],L2:['ShiftLeft','Apurar'],mini}}
  if(m=='toro')return{face:{a:[sim?'Act':'Space','Embestir'],b:['ShiftLeft','Humillar'],x:['KeyQ','Derrote'],y:['KeyE','Escarbar']}};
  if(m=='encierro')return{face:{a:[sim?'Act':'Space','Esquivar'],b:['ShiftLeft','Esprint'],x:['KeyC','Mirar atrás']}};
- if(m=='bous'){if(sim){const bl=AS.bl||{salto:'Salto',fig:'De rodillas'};return{face:{a:['Act',AS.lab&&/Recorte|Quiebro|Anilla/.test(AS.lab)?AS.lab:'Recortar'],b:['Salto',bl.salto],x:['Fig',bl.fig],y:['Rev','Reverso']},alt:null,L:['Ref','Barrera']}}
+ if(m=='bous'){if(sim)return{face:{},grid:[['B1','Recorte'],['B2','Quiebro'],['B3','Salto'],['B4','Anilla'],['B5','Reverso'],['B6','Engaño'],['B7','Quiebro de rodillas'],['B8','Garrocha']],L:['KeyE','Citar'],L2:['Ref','Barrera']};
   return{face:{a:['Digit1','Recorte'],b:['Digit2','Quiebro'],x:['Digit3','Salto'],y:['Digit4','Anilla']},alt:{a:['Digit5','Reverso'],b:['Digit6','Engaño'],x:['Digit7','De rodillas'],y:['Digit8','Garrocha']},L:['KeyE','Citar'],L2:['ShiftLeft','Correr'],mini:[['Space','Barrera']]}}
  return null}
 function bindHold(b,k0){b.onpointerdown=e=>{e.preventDefault();const k=b.dataset.k||k0;if(!k)return;try{b.setPointerCapture(e.pointerId)}catch(_){}b.classList.add('on');vib();TC.held[e.pointerId]=k;G.keys[k]=1};
@@ -51,11 +51,11 @@ function padInit(){if($('pad'))return;const pad=document.createElement('div');pa
  TC.f={};for(const[k,l]of[['a','A'],['b','B'],['x','X'],['y','Y']]){const b=mk('fb k'+k,`<i>${l}</i><span></span>`);bindHold(b);TC.f[k]=b}
  const r=mk('sh sr','<i>R</i><span>Más pases</span>');r.onpointerdown=e=>{e.preventDefault();try{r.setPointerCapture(e.pointerId)}catch(_){}TC.alt=1;r.classList.add('on');vib()};const ru=()=>{TC.alt=0;r.classList.remove('on')};r.onpointerup=r.onpointercancel=r.onlostpointercapture=ru;TC.r=r;
  TC.l=mk('sh sl','<i>L</i><span></span>');bindHold(TC.l);TC.l2=mk('sh sl2','<i>L2</i><span></span>');bindHold(TC.l2);
- TC.mini=[0,1,2].map(i=>{const b=mk('mini m'+i,'<span></span>');bindHold(b);return b})}
+ TC.mini=[0,1,2].map(i=>{const b=mk('mini m'+i,'<span></span>');bindHold(b);return b});TC.g=[0,1,2,3,4,5,6,7].map(i=>{const b=mk('pg g'+i,'<span></span>');bindHold(b);return b})}
 function padSet(b,e,cls){if(!e){if(!b.hidden)b.hidden=true;return}if(b.hidden)b.hidden=false;if(b.dataset.k!==e[0]){const old=b.dataset.k;b.dataset.k=e[0];if(old&&b.classList.contains('on')){/* el dedo sigue apoyado: se mantiene la tecla antigua hasta soltar */}}
  const sp=b.querySelector('span');const t=e[1].replace('-','­');if(sp.textContent!==t)sp.textContent=t;b.classList.toggle('gold',e[2]=='g');b.classList.toggle('long',e[1].length>9)}
 function touchCtx(){if(!TOUCH||$('touch').hidden)return;padInit();const sp=touchSpec();if(!sp)return;
- const set=TC.alt&&sp.alt?sp.alt:sp.face;for(const k of['a','b','x','y'])padSet(TC.f[k],set[k]);
+ TC.g.forEach((b,i)=>padSet(b,(sp.grid||[])[i]));const set=TC.alt&&sp.alt?sp.alt:sp.face;for(const k of['a','b','x','y'])padSet(TC.f[k],set[k]);
  TC.r.hidden=!sp.alt;{const rl=G.mode=='bous'?'Más figuras':'Más pases',rs=TC.r.querySelector('span');if(rs.textContent!==rl)rs.textContent=rl}TC.r.classList.toggle('on',!!TC.alt);padSet(TC.l,sp.L);padSet(TC.l2,sp.L2);TC.mini.forEach((b,i)=>padSet(b,(sp.mini||[])[i]));
  $('thint').textContent=sp.hint||'';$('thint').hidden=!sp.hint;
  // correr empujando el joystick al tope (sin pisar el botón mantenido)

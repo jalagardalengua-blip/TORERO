@@ -175,6 +175,22 @@ background:radial-gradient(circle at 50% 30%,rgba(48,30,18,.66),rgba(12,8,6,.66)
 @media (orientation:portrait){#pad .sr{bottom:calc(214px + env(safe-area-inset-bottom,0px));right:calc(max(18px,env(safe-area-inset-right,0px)) + 20px)}#pad .m0,#pad .m1,#pad .m2{right:auto;left:max(16px,env(safe-area-inset-left,0px))}#pad .m0{bottom:calc(258px + env(safe-area-inset-bottom,0px))}#pad .m1{bottom:calc(294px + env(safe-area-inset-bottom,0px))}#pad .m2{bottom:calc(330px + env(safe-area-inset-bottom,0px))}}
 #tanda{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:min(640px,80vw);background:rgba(16,11,9,.55);border:1px solid rgba(216,174,74,.5);padding:5px 14px;font:600 15px var(--f-ui);letter-spacing:.04em;color:var(--papel);text-shadow:0 1px 3px #000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .touch #tanda{bottom:auto;top:calc(54px + env(safe-area-inset-top,0px));font-size:12px;padding:3px 10px;max-width:46vw}
+/* rejilla de pases con nombre */
+#pad .pg{width:104px;height:44px;border-radius:22px;display:grid;place-items:center}
+#pad .pg span{font-size:11.5px;letter-spacing:.03em}
+#pad .pg.long span{font-size:10px}
+#pad .g0{right:calc(max(14px,env(safe-area-inset-right,0px)) + 112px);bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+#pad .g1{right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+#pad .g2{right:calc(max(14px,env(safe-area-inset-right,0px)) + 112px);bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+#pad .g3{right:max(14px,env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+#pad .g4{right:calc(max(14px,env(safe-area-inset-right,0px)) + 112px);bottom:calc(114px + env(safe-area-inset-bottom,0px))}
+#pad .g5{right:max(14px,env(safe-area-inset-right,0px));bottom:calc(114px + env(safe-area-inset-bottom,0px))}
+#pad .g6{right:calc(max(14px,env(safe-area-inset-right,0px)) + 112px);bottom:calc(164px + env(safe-area-inset-bottom,0px))}
+#pad .g7{right:max(14px,env(safe-area-inset-right,0px));bottom:calc(164px + env(safe-area-inset-bottom,0px))}
+#pad .pg.sug{border-color:var(--oro);box-shadow:0 0 0 3px rgba(216,174,74,.4),0 3px 12px rgba(0,0,0,.4)}
+#pad .pg.armed{background:radial-gradient(circle,rgba(216,174,74,.78),rgba(150,100,30,.78));color:#140e0b}
+#pad .sl{bottom:calc(214px + env(safe-area-inset-bottom,0px))}#pad .sl.big{height:44px;min-width:120px;border-radius:22px}
+#pad .m0{right:auto;left:calc(max(16px,env(safe-area-inset-left,0px)) + 136px);bottom:calc(216px + env(safe-area-inset-bottom,0px))}#pad .m1{right:auto;left:calc(max(16px,env(safe-area-inset-left,0px)) + 136px);bottom:calc(172px + env(safe-area-inset-bottom,0px))}#pad .m2{right:auto;left:calc(max(16px,env(safe-area-inset-left,0px)) + 136px);bottom:calc(128px + env(safe-area-inset-bottom,0px))}
 /* anillo de tiempo */
 #ring{position:fixed;left:0;top:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .15s}#ring.on{opacity:1}
 #ring i{position:absolute;left:0;top:0;border:2px solid rgba(239,227,200,.9);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px rgba(0,0,0,.6),inset 0 0 6px rgba(0,0,0,.4)}
