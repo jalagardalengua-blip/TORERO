@@ -11,7 +11,7 @@ const q=[B.p[0]+f[0]*ahead-T.p[0],0,B.p[2]+f[2]*ahead-T.p[2]],lat=V.dot(q,rightO
 const CAT={capote:{1:['veronica'],2:['chicuelina','gaonera','delantal','farol'],3:['media','revolera'],4:['larga']},muleta:{1:['derechazo'],2:['natural'],3:['pecho','trincherilla'],4:['molinete','manoletina','ayudado','circular']}};
 function catDef(T,i){const ids=CAT[T.tool][i];AS.rot=AS.rot||{};const id=ids[(AS.rot[T.tool+i]||0)%ids.length];return PASES[T.tool].find(p=>p.id==id)}
 // pulsar el pase: si falta poco para la llegada se guarda y sale a tiempo; si es demasiado pronto, sale precipitado
-function asPress(T,B,def,cat){const d=V.d2(B.p,T.p),charging=B.state=='embiste'&&B.v>2.5,f=fwdOf(B.h),ahead=(T.p[0]-B.p[0])*f[0]+(T.p[2]-B.p[2])*f[2];
+function asPress(T,B,def,cat){AS.hold={def,cat};const d=V.d2(B.p,T.p),charging=B.state=='embiste'&&B.v>2.5,f=fwdOf(B.h),ahead=(T.p[0]-B.p[0])*f[0]+(T.p[2]-B.p[2])*f[2];
 if(charging&&ahead>0){const arr=(d-1)/M.max(B.v,1.5),e=arr-def.dur*.42;if(e>.24){asFire(T,B,def,cat);say('¡Precipitado!',0,'red');return}}AS.buf={t:0,def,cat}}
 function asFire(T,B,def,cat){startPase(T,def,asSide(T,B,def));T.keyK=def.k;if(cat){AS.rot=AS.rot||{};AS.rot[T.tool+cat]=(AS.rot[T.tool+cat]||0)+1}else AS.pi++;AS.buf=null}
 function asTorero(dt,act,actHit){const T=C.T,B=C.B;if(!T||!B)return;G.keys.Space=0;
@@ -28,10 +28,13 @@ if(!T.pase){const want=B.state!='salida'&&d<17&&!(charging&&ahead<0);if(want&&!k
  AS.ck=AS.ck||{};for(let i=1;i<=4;i++){const on=!!G.keys['C'+i];if(on&&!AS.ck[i]&&!T.pase)asPress(T,B,catDef(T,i),i);AS.ck[i]=on}
  if(T.pase)return;
  if(charging&&ahead>0&&C.passCount<3&&AS.tut!==C.lastCharge&&d<11){AS.tut=C.lastCharge;say(TOUCH?'Pulsa un pase cuando el aro dorado se cierre':'Pulsa Espacio o 1-8 cuando el aro dorado se cierre',0)}
+ const holdAny=act||[1,2,3,4].some(i=>G.keys['C'+i])||PASES[T.tool].some(q=>PH['Digit'+q.k]||G.keys['T'+q.k]);if(holdAny&&!charging){G.keys.KeyE=1;AS.toque=(AS.toque||0)+dt}
+ if(holdAny&&!AS.buf&&AS.hold&&AS.hold.def&&PASES[T.tool].includes(AS.hold.def)&&G.t-(T.lastEnd||0)>.15){const hc=AS.hold.cat;AS.buf={t:0,def:hc?catDef(T,hc):AS.hold.def,cat:hc}}
  if(AS.buf){AS.buf.t+=dt;const arr=(d-1)/M.max(B.v,1.5);
   const bd=AS.buf.def;if(charging&&ahead>0&&arr<=bd.dur*.42+.02)asFire(T,B,bd,AS.buf.cat);
-  else if(!charging&&AS.buf.t>1.8)AS.buf=null}}
-else{const held=act||[1,2,3,4].some(i=>G.keys['C'+i])||PASES[T.tool].some(q=>PH['Digit'+q.k]||G.keys['T'+q.k]);G.keys['Digit'+T.keyK]=held?1:0;if(held||PH.ShiftLeft||PH.ShiftRight)G.keys.ShiftLeft=1;AS.lab='Templar';AS.buf=null}}
+  else if(!charging&&AS.buf.t>1.8&&!holdAny)AS.buf=null}}
+else{if(T.pase.u>.72&&charging&&ahead>0&&B.stT<1.5&&AS.hold&&AS.hold.def){const hc=AS.hold.cat,nd=hc?catDef(T,hc):AS.hold.def,arr=(d-1)/M.max(B.v,1.5);if(PASES[T.tool].includes(nd)&&arr<=nd.dur*.42+.02&&(act||[1,2,3,4].some(i=>G.keys['C'+i])||PASES[T.tool].some(q=>PH['Digit'+q.k]||G.keys['T'+q.k]))){endPase(T);asFire(T,B,nd,hc);return}}
+ const held=act||[1,2,3,4].some(i=>G.keys['C'+i])||PASES[T.tool].some(q=>PH['Digit'+q.k]||G.keys['T'+q.k]);G.keys['Digit'+T.keyK]=held?1:0;T.temp=held;if(G.keys.KeyW||PH.ShiftLeft||PH.ShiftRight)G.keys.ShiftLeft=1;else G.keys.ShiftLeft=0;AS.lab='Templar';AS.buf=null}}
 function asToro(dt,act){const B=C.B,T=C.T;if(!B)return;AS.lab='Embestir';if(!act){G.keys.Space=0;return}
 const tg0=lureOf(T)||T.lureT||V.madd(T.p,rightOf(T.hd),1.6),aw=V.norm([tg0[0]-T.p[0],0,tg0[2]-T.p[2]]),tg=V.madd(tg0,aw,.7),d=V.d2(B.p,tg),ang=angDiff(B.h,M.atan2(tg[0]-B.p[0],tg[2]-B.p[2]));
 G.keys.KeyW=1;G.keys.Space=B.fuerza>.05?1:0;AS.lab='Embestir'}

@@ -1,6 +1,6 @@
 // Service worker: el juego funciona sin conexión una vez abierto.
 // Sube VERSION al publicar cambios para que los móviles descarguen la versión nueva.
-const VERSION='embestida-v2';
+const VERSION='embestida-v3';
 const CORE=['./','index.html','app.js','manifest.webmanifest','icons/icon.svg','icons/icon-192.png','icons/icon-512.png','icons/apple-touch-icon.png',
   'fonts/fonts.css','fonts/Barlow-400-latin.woff2','fonts/Barlow-500-latin.woff2','fonts/Barlow-600-latin.woff2','fonts/BarlowCondensed-400-latin.woff2','fonts/BarlowCondensed-500-latin.woff2','fonts/BarlowCondensed-600-latin.woff2','fonts/BarlowCondensed-700-latin.woff2','fonts/Ultra-400-latin.woff2'];
 

@@ -105,7 +105,7 @@ function hornTips(B){const s=B.m.sz;return[-1,1].map(k=>m4.pt(B.m.head.w,[k*.3*s
 function rightOf(h){return[-M.cos(h),0,M.sin(h)]}function fwdOf(h){return[M.sin(h),0,M.cos(h)]}
 function loc(T,h,c){const r=rightOf(h),f=fwdOf(h);return[T.p[0]+r[0]*c[0]+f[0]*c[2],c[1]+(T.toss?T.toss.y:0),T.p[2]+r[2]*c[0]+f[2]*c[2]]}
 function holdPose(T){const t=G.t;let P;
-if(T.pase){const ps=T.pase,q=ps.def.f(ps.u,ps.s);if(ps.ap)q.c=[q.c[0]*(1-apurarMax()*ps.ap),q.c[1],q.c[2]];P={...q,h:ps.h0,one:q.one||ps.def.one,back:ps.def.back,high:q.high}}
+if(T.pase){const ps=T.pase,q=ps.def.f(ps.u,ps.s);if(ps.temp&&!q.high)q.c=[q.c[0],q.c[1]-.16*ps.temp*M.sin(PI*M.min(1,ps.u*1.2)),q.c[2]];if(ps.ap)q.c=[q.c[0]*(1-apurarMax()*ps.ap),q.c[1],q.c[2]];P={...q,h:ps.h0,one:q.one||ps.def.one,back:ps.def.back,high:q.high}}
 else if(C.kill&&T.tool=='muleta'){const K=C.kill,en=K.ph=='entrada';P={c:[-.32,en?.55:.72,en?.6:.42],th:PI-.5,tw:en?-.2:0,ln:en?.35:.04,h:T.hd,one:'L'}}
 else if(T.tool=='capote'){const cite=T.cite;const sh=M.sin(t*7)*.1*cite;const cs=-(T.lastSide||-1)*.32*cite;P={c:[sh+cs,lerp(1.0,1.12,cite),lerp(.42,.66,cite)],th:sh*.6,hw:lerp(.36,.44,cite),tw:0,ln:.06*cite,h:T.hd}}
 else{const cite=T.cite;const sh=M.sin(t*6)*.08*cite;P={c:[lerp(-.28,.32,cite)+sh,lerp(.78,.92,cite),lerp(.25,.62,cite)],th:lerp(-1.3,-.3,cite),tw:0,ln:.05*cite,h:T.hd,one:'R'}}
@@ -129,9 +129,9 @@ Hm.arms.forEach((a,i)=>{if(A.free&&A.free[i]){const q=M.sin(c+(i?0:PI));a.sh.q=Q
 function poseTorero(T,dt){const Hm=T.h,P=holdPose(T);let h=P.h+(P.spin||0);if(!T.pase)h=T.hd;
 Hm.root.p=[T.p[0],T.toss?T.toss.y:0,T.p[2]];Hm.root.r=[T.toss?T.toss.rx:0,h,T.toss?T.toss.rz:0];
 const B=C.B;const look=angDiff(h,M.atan2(B.p[0]-T.p[0],B.p[2]-T.p[2]));
-T.stum=M.max(0,(T.stum||0)-dt*1.6);T.twist=lerp(T.twist,P.tw||0,M.min(1,10*dt));T.lean=lerp(T.lean,(P.ln||0)-T.stum*.35,M.min(1,8*dt));T.kneel=lerp(T.kneel,T.pase&&T.pase.def.kneel?1:0,M.min(1,6*dt));
+T.stum=M.max(0,(T.stum||0)-dt*1.6);const tpv=T.pase?T.pase.temp||0:0;T.twist=lerp(T.twist,(P.tw||0)*(1+.35*tpv),M.min(1,10*dt));T.lean=lerp(T.lean,(P.ln||0)+.1*tpv-T.stum*.35,M.min(1,8*dt));T.kneel=lerp(T.kneel,T.pase&&T.pase.def.kneel?1:0,M.min(1,6*dt));
 const one=P.one,free=[!T.hands||!T.hands.R,!T.hands||!T.hands.L];
-T.stance=lerp(T.stance||0,T.pase||C.kill?1:T.cite*.6,M.min(1,4*dt));
+T.stance=lerp(T.stance||0,T.pase||C.kill?1+.4*(T.pase&&T.pase.temp||0):T.cite*.6,M.min(1,4*dt));
 let wsp=T.pase?0:T.spd,hy=0;if(!T.pase&&T.spd>.25&&T.vel&&!T.toss){const mvA=M.atan2(T.vel[0],T.vel[1]),rel=angDiff(h,mvA);if(M.abs(rel)>PI*.6){wsp=-T.spd*.8;hy=clamp(angDiff(h,mvA+PI),-.8,.8)}else hy=clamp(rel,-.95,.95)}
 const om=angDiff(T.prevH??h,h)/M.max(dt,1e-3);T.prevH=h;if(!T.pase&&T.spd<.3&&M.abs(om)>.7&&!T.toss)wsp=M.min(1.1,M.abs(om)*.3);T.hyS=lerp(T.hyS||0,hy,M.min(1,6*dt));
 const stpT=T.pase?-T.pase.s*lerp(1,.2,sstep(.35,1,T.pase.u)):T.cite*.6*(T.lastSide||-1);T.stp=lerp(T.stp||0,stpT,M.min(1,5*dt));
@@ -180,7 +180,7 @@ case 'arranca':{B.v=M.max(0,B.v-8*dt);B.cue=1;B.hum=lerp(B.hum,.7,M.min(1,6*dt))
 case 'embiste':{const tgt0=lure||man;let tgt=tgt0;const sp=vmax(B)*(B.cv||1);const dd0=V.d2(B.p,tgt0);
  // se vence por un pitón: en los últimos metros busca el bulto
  if(lure&&free&&dM<3.6&&ch.vence>.05){const rx=fz,rz=-fx,lat=(man[0]-B.p[0])*rx+(man[2]-B.p[2])*rz;if(M.sign(lat)==ch.piton){const bad=T.pase?clamp(M.abs(T.pase.err||0)*2.2,0,1):.8;const k=ch.vence*(1-dM/3.6)*(.75+bad*.9);tgt=V.lerp(tgt0,man,k*.75);if(!B.vSide){B.vSide=1}}}
- {const ms=T.pase?1-clamp((M.abs(T.pase.err||0)-.1)*2.2,0,.75):1;bullSteer(B,tgt[0],tgt[2],sp,dt,lure?(dd0<7?2.3:1.2)*TOR().poder*ms:.9)}
+ {const ms=T.pase?1-clamp((M.abs(T.pase.err||0)-.1)*2.2,0,.75):1;bullSteer(B,tgt[0],tgt[2],sp*(T.pase&&T.pase.temp&&dd0<5?lerp(1,.68,T.pase.temp*(.5+.5*B.nob)):1),dt,lure?(dd0<7?2.3:1.2)*TOR().poder*ms:.9)}
  const dt_=V.d2(B.p,tgt0);const ly=lure?lure[1]:1.2,low=clamp((1.25-ly)/.6,0,1);B.hum=lerp(B.hum,dt_<5.5?lerp(.4,1.25,ch.hum*(.55+.45*low))*(.7+.3*B.fuerza):.2,M.min(1,5*dt));const ahead=(tgt0[0]-B.p[0])*fx+(tgt0[2]-B.p[2])*fz;
  // punteo: derrota al engaño
  if(T.pase&&dt_<1.2&&M.random()<ch.punt*dt*3){B.der=1;T.pase.hook=1}
@@ -242,7 +242,7 @@ const B=C.B,wantH=run&&l>.01?M.atan2(mx,mz):M.atan2(B.p[0]-T.p[0],B.p[2]-T.p[2])
 function CAM_YAW(){return M.atan2(CAM.t[0]-CAM.p[0],CAM.t[2]-CAM.p[2])}
 function startPase(T,def,s){const B=C.B;T.lastSide=-s;T.desp=null;T.pase={def,s,u:0,h0:M.atan2(B.p[0]-T.p[0],B.p[2]-T.p[2]),minD:99,minL:99,eng:0,held:0,keyHeld:1,moved:0,t0:G.t,bd:V.d2(B.p,T.p),bs:B.state,bv:B.v};
 const arr=B.state=='embiste'?(V.d2(B.p,T.p)-1)/M.max(B.v,1.5):9;T.pase.err=arr-def.dur*.42;T.pase.sd=B.state=='embiste'?B.startD||0:0;T.hd=T.pase.h0;if(!G.ai)say(def.n,0,'pase')}
-function updPase(T,dt,holdKey){const ps=T.pase,B=C.B;const held=holdKey&&ps.u>.4;ps.u+=dt/ps.def.dur*(held?.72:1)*(ps.bs=='embiste'?clamp(B.v/7.5,.62,1.25):1);if(held&&ps.u<.85)ps.held+=dt;
+function updPase(T,dt,holdKey){const ps=T.pase,B=C.B;const lpN=T.lureT?V.len(V.sub(T.lureT,B.m.head.wpos())):9,eng=lpN<2.3||ps.u<.45;const held=holdKey&&ps.u>.25&&eng;ps.temp=lerp(ps.temp||0,held?1:0,M.min(1,6*dt));ps.u+=dt/ps.def.dur*lerp(ps.u>.3?1.3:1,.62,ps.temp)*(ps.bs=='embiste'?clamp(B.v/7.5,.62,1.25):1);if(held&&ps.u<.85)ps.held+=dt;
 const lp=T.lureT,dB=V.d2(B.p,T.p),dL=V.len(V.sub(lp,V.add(B.m.head.wpos(),[0,.1,0])));ps.minD=M.min(ps.minD,dB);ps.minL=M.min(ps.minL,dL);
 if(ps.u>.2&&ps.u<.9&&dL<1.25&&B.v>3&&(B.state=='embiste'||B.state=='pasado'))ps.eng=1;
 if(!ps.wh&&ps.u>.38){ps.wh=1;whoosh(T.tool=='capote'?1.1:.8);if(dL<1.6)for(let i=0;i<10;i++)emit(V.add(B.p,[rnd(-.8,.8),.15,rnd(-.8,.8)]),[rnd(-1.2,1.2)+M.sin(B.h)*B.v*.3,rnd(.4,1.3),rnd(-1.2,1.2)+M.cos(B.h)*B.v*.3],rnd(.3,.5),rnd(1.2,2),[.86,.7,.5],.3)}
