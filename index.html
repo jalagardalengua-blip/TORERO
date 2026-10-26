@@ -1,8 +1,23 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Embestida</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Ultra&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Embestida: torea, sé el toro, corre el encierro o recorta en los bous al carrer. Juego 3D para móvil y ordenador.">
+<meta name="theme-color" content="#140e0b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Embestida">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta property="og:title" content="Embestida">
+<meta property="og:description" content="Juego de toros en 3D: capote, muleta, encierro y bous al carrer.">
+<meta property="og:image" content="icons/icon-512.png">
+<link href="fonts/fonts.css" rel="stylesheet">
 <style>
 /* Cartel de toros sobre la plaza en vivo: panel de papel a la izquierda, HUD en esquinas sobre la escena */
 :root{--albero:#d9a24b;--sangre:#9a1e14;--oro:#d8ae4a;--tinta:#140e0b;--papel:#efe3c8;--papel2:#e4d3ae;--humo:rgba(16,11,9,.62);
@@ -206,7 +221,13 @@ background:radial-gradient(circle at 50% 30%,rgba(48,30,18,.66),rgba(12,8,6,.66)
 @media (max-width:640px){#goal{max-width:62vw}#goal b{font-size:14px}.sc{width:150px}#score{font-size:40px}#hudSub{font-size:13px}#keys{display:none}#menu{background:rgba(12,8,6,.35)}.tl{max-width:62vw}}
 @media (orientation:portrait){#tzone{width:55%;height:40%}.touch #meter{bottom:calc(240px + env(safe-area-inset-bottom,0px));width:70vw}#thint{bottom:calc(200px + env(safe-area-inset-bottom,0px))}.touch #meter{bottom:calc(250px + env(safe-area-inset-bottom,0px))}.touch #hudSub{display:none}.touch .tl{max-width:calc(50vw - 30px)}.touch #goal{max-width:calc(50vw - 64px)}}
 @media (prefers-reduced-motion:reduce){#call,.mode,#toast{transition:none}}
+/* app instalada / móvil: sin selección ni zoom accidental */
+html,body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
+button,select{touch-action:manipulation}
+#fsBtn{display:block;width:100%;margin:0 0 10px;font:700 13px var(--f-ui);letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;background:var(--sangre);color:var(--papel);border:0;cursor:pointer}
 </style>
+</head>
+<body>
 <canvas id="gl"></canvas>
 <div id="load"><div class="lt">Embestida</div><div id="loadTxt">Preparando la plaza…</div></div>
 <div id="hud" hidden>
@@ -2156,7 +2177,7 @@ await step('Levantando los tendidos…');buildArenaWorld();
 await step('Embarcando al toro…');fillMenu();menuScene();CAM.p=[8,2,8];
 hide('load');show('menu');requestAnimationFrame(frame)}catch(e){console.error(e);$('loadTxt').textContent='No se pudo iniciar: '+e.message}}
 window.__G=G;boot();
-
 </script>
-
-</body></html>
+<script src="app.js"></script>
+</body>
+</html>
